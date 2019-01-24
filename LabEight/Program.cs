@@ -38,35 +38,44 @@ namespace LabEight
             bool run = true;
             while (run == true)
             {
-                Console.WriteLine("Welcome to our C# class. Which student would you like to learn more about? (Enter a number 0-14):");
-                string input = Console.ReadLine();
-                int.TryParse(input, out int userInput);
-                while (!int.TryParse(input, out userInput) || userInput > 15)
+                try
                 {
-                    Console.WriteLine("That student does not exist. Please try again. (Enter a number 0 - 14):");
-                }
-                if (int.TryParse(input, out userInput) || userInput < 15)
-                {
-                    Console.WriteLine($"Student " + userInput + " is " + studentInfo[userInput, 0]);
-                }
+                    Console.WriteLine("Welcome to our C# class. Which student would you like to learn more about? (Enter a number 0-14):");
+                    string input = Console.ReadLine();
+                    int.TryParse(input, out int userInput);
+                    while (!int.TryParse(input, out userInput) || userInput > 15)
+                    {
+                        Console.WriteLine("That student does not exist. Please try again. (Enter a number 0 - 14):");
+                        input = Console.ReadLine();
+                        int.TryParse(input, out userInput);
+                    }
+                    if (int.TryParse(input, out userInput) || userInput < 15)
+                    {
+                        Console.WriteLine($"Student " + userInput + " is " + studentInfo[userInput, 0]);
+                    }
 
-                Console.WriteLine("What would you like to know about " + studentInfo[userInput, 0] + "?" + "(enter hometown or favorite food):");
-                string fact = Console.ReadLine().ToLower();
-                while (fact != "hometown" && fact != "favorite food")
-                {
-                    Console.WriteLine("That is not a valid data type. Please try again:");
                     Console.WriteLine("What would you like to know about " + studentInfo[userInput, 0] + "?" + "(enter hometown or favorite food):");
-                    fact = Console.ReadLine().ToLower();
+                    string fact = Console.ReadLine().ToLower();
+                    while (fact != "hometown" && fact != "favorite food")
+                    {
+                        Console.WriteLine("That is not a valid data type. Please try again:");
+                        Console.WriteLine("What would you like to know about " + studentInfo[userInput, 0] + "?" + "(enter hometown or favorite food):");
+                        fact = Console.ReadLine().ToLower();
+                    }
+                    if (fact == "hometown")
+                    {
+                        Console.WriteLine(studentInfo[userInput, 0] + " is from " + studentInfo[userInput, 1]);
+                    }
+                    if (fact == "favorite food")
+                    {
+                        Console.WriteLine(studentInfo[userInput, 0] + "'s favorite food is " + studentInfo[userInput, 2]);
+                    }
+                    run = Continue();
                 }
-                if (fact == "hometown")
+                catch(IndexOutOfRangeException)
                 {
-                    Console.WriteLine(studentInfo[userInput, 0] + " is from " + studentInfo[userInput, 1]);
+                    Console.WriteLine("Invalid data");
                 }
-                if (fact == "favorite food")
-                {
-                    Console.WriteLine(studentInfo[userInput, 0] + "'s favorite food is " + studentInfo[userInput, 2]);
-                }
-                run = Continue();
             }
         }
 
@@ -81,6 +90,7 @@ namespace LabEight
             }
             else if (userContinue == "n")
             {
+                Console.WriteLine("Goodbye");
                 execute = false;
             }
             else
