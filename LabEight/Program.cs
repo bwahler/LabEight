@@ -11,7 +11,6 @@ namespace LabEight
         static void Main(string[] args)
         {
                 StudentInfo();
-                Continue();
         }
 
         public static void StudentInfo()
